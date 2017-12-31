@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">F - Reminder</string>
+
+    <string name="title_activity_splash">SplashActivity</string>
+    <string name="title_activity_main">Home</string>
+
+    <string name="example_name">Arif Luthfiansyah</string>
+    <string name="example_email">lutluthfiansyah@gamil.com</string>
+    <string name="example_price">Rp 100.000</string>
+    <string name="example_date">12&#8211;12&#8211;2012</string>
+
+    <string name="prompt_open_drawer">Open navigation drawer</string>
+    <string name="prompt_close_drawer">Close navigation drawer</string>
+    <string name="prompt_income">Income</string>
+    <string name="prompt_outcome">Outcome</string>
+    <string name="prompt_your_money">Yours</string>
+    <string name="prompt_title">Title</string>
+    <string name="prompt_content">Content</string>
+    <string name="prompt_date">Date</string>
+    <string name="prompt_price">Price</string>
+
+    <string name="action_save">Save</string>
+    <string name="action_refresh">Refresh</string>
+    <string name="action_settings">Settings</string>
+</resources>
