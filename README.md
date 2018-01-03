@@ -1,5 +1,5 @@
 # F-Reminder
-F-Reminder is an app for learning of library Realm database. Aims to record your income and outcome
+F-Reminder is an mobile android application for learning realm database. Aims to record your income and outcome
 
 ![alt text](https://raw.githubusercontent.com/lutluthfi/F-Reminder/master/capture-1.png)
 
