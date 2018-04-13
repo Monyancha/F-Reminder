@@ -1,4 +1,4 @@
-package com.example.arifluthfiansyah.f_reminder.data;
+package com.example.arifluthfiansyah.f_reminder.data.prefs;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -7,7 +7,7 @@ import android.content.SharedPreferences;
  * Created by Arif Luthfiansyah on 12-Dec-17.
  */
 
-public class AppPreferencesHelper {
+public class AppPreferencesHelper implements PreferencesHelper{
 
     private static final String PREF_NAME = "F-REMINDER";
     private static final String PREF_KEY_IS_FIRST_TIME = "PREF_KEY_IS_FIRST_TIME";

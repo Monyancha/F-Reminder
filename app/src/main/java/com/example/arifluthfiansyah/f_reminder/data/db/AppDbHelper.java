@@ -1,61 +1,135 @@
-package com.example.arifluthfiansyah.f_reminder.controller;
+package com.example.arifluthfiansyah.f_reminder.data.db;
 
-import android.app.Activity;
-import android.app.Application;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 
-import com.example.arifluthfiansyah.f_reminder.model.Outcome;
+import com.example.arifluthfiansyah.f_reminder.data.db.model.Income;
+import com.example.arifluthfiansyah.f_reminder.data.db.model.Outcome;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.ParametersAreNonnullByDefault;
+import javax.inject.Singleton;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
 import io.realm.Sort;
 
-/**
- * Created by Arif Luthfiansyah on 11-Dec-17.
- */
-
-public class OutcomeController {
-
-    private static OutcomeController instance;
+@Singleton
+public class AppDbHelper implements DbHelper {
     private final Realm realm;
 
-    public OutcomeController(Application application) {
-        realm = Realm.getDefaultInstance();
+    public AppDbHelper(Realm realm) {
+        this.realm = realm;
     }
 
-    public static OutcomeController with(Fragment fragment) {
-        if (instance == null) {
-            instance = new OutcomeController(fragment.getActivity().getApplication());
+    public void addIncome(final Income add) {
+        realm.executeTransactionAsync(new Realm.Transaction() {
+            @ParametersAreNonnullByDefault
+            @Override
+            public void execute(Realm realm) {
+                realm.copyToRealm(add);
+            }
+        }, new Realm.Transaction.OnSuccess() {
+            @Override
+            public void onSuccess() {
+                Log.d("IncomeController", "Success add");
+            }
+        }, new Realm.Transaction.OnError() {
+            @ParametersAreNonnullByDefault
+            @Override
+            public void onError(Throwable error) {
+                Log.d("IncomeController", error.getMessage());
+            }
+        });
+    }
+
+    public void updateIncome(final Income update) {
+        realm.executeTransactionAsync(new Realm.Transaction() {
+            @ParametersAreNonnullByDefault
+            @Override
+            public void execute(Realm realm) {
+                Income income = realm.where(Income.class).equalTo("id", update.getId()).findFirst();
+                if (income != null) {
+                    income.setTitle(update.getTitle());
+                    income.setPrice(update.getPrice());
+                }
+            }
+        }, new Realm.Transaction.OnSuccess() {
+            @Override
+            public void onSuccess() {
+                Log.d("IncomeController", "Success update");
+            }
+        }, new Realm.Transaction.OnError() {
+            @ParametersAreNonnullByDefault
+            @Override
+            public void onError(Throwable error) {
+                Log.d("IncomeController", error.getMessage());
+            }
+        });
+    }
+
+    public Income getIncomeById(long id) {
+        return realm.where(Income.class).equalTo("id", id).findFirst();
+    }
+
+    public Income getIncomeByLast() {
+        return realm.where(Income.class).sort("id", Sort.DESCENDING).findFirst();
+    }
+
+    public List<Income> getIncomes() {
+        List<Income> incomes = new ArrayList<>();
+        RealmResults<Income> results = realm.where(Income.class).sort("id", Sort.DESCENDING).findAll();
+        for (Income i : results) {
+            incomes.add(new Income(i.getId(), i.getTitle(), i.getPrice(), i.getDate()));
         }
-        return instance;
+        return incomes;
     }
 
-    public static OutcomeController with(Activity activity) {
-        if (instance == null) {
-            instance = new OutcomeController(activity.getApplication());
-        }
-        return instance;
+    public void deleteIncomeById(final long id) {
+        realm.executeTransactionAsync(new Realm.Transaction() {
+            @ParametersAreNonnullByDefault
+            @Override
+            public void execute(Realm realm) {
+                Income results = realm.where(Income.class).equalTo("id", id).findFirst();
+                if (results != null) {
+                    results.deleteFromRealm();
+                }
+            }
+        }, new Realm.Transaction.OnSuccess() {
+            @Override
+            public void onSuccess() {
+                Log.d("IncomeController", "Success delete");
+            }
+        }, new Realm.Transaction.OnError() {
+            @ParametersAreNonnullByDefault
+            @Override
+            public void onError(Throwable error) {
+                Log.d("IncomeController", error.getMessage());
+            }
+        });
     }
 
-    public static OutcomeController with(Application application) {
-        if (instance == null) {
-            instance = new OutcomeController(application);
-        }
-        return instance;
-    }
-
-    public static OutcomeController getInstance() {
-        return instance;
-    }
-
-    public Realm getRealm() {
-        return realm;
+    public void deleteIncomes() {
+        realm.executeTransactionAsync(new Realm.Transaction() {
+            @ParametersAreNonnullByDefault
+            @Override
+            public void execute(Realm realm) {
+                RealmResults<Income> results = realm.where(Income.class).findAll();
+                results.deleteAllFromRealm();
+            }
+        }, new Realm.Transaction.OnSuccess() {
+            @Override
+            public void onSuccess() {
+                Log.d("IncomeController", "Success delete");
+            }
+        }, new Realm.Transaction.OnError() {
+            @ParametersAreNonnullByDefault
+            @Override
+            public void onError(Throwable error) {
+                Log.d("IncomeController", error.getMessage());
+            }
+        });
     }
 
     public void addOutcome(final Outcome add) {

@@ -1,32 +1,29 @@
-package com.example.arifluthfiansyah.f_reminder.model;
-
-import java.io.Serializable;
+package com.example.arifluthfiansyah.f_reminder.data.db.model;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
-/**
- * Created by Arif Luthfiansyah on 11-Dec-17.
- */
-
-public class Income extends RealmObject implements Serializable{
+public class Outcome extends RealmObject {
 
     @PrimaryKey
     private long id;
 
     private String title;
 
+    private String content;
+
     private int price;
 
     private String date;
 
-    public Income() {
+    public Outcome() {
         // Blank constructor
     }
 
-    public Income(long id, String title, int price, String date) {
+    public Outcome(long id, String title, String content, int price, String date) {
         this.id = id;
         this.title = title;
+        this.content = content;
         this.price = price;
         this.date = date;
     }
@@ -45,6 +42,14 @@ public class Income extends RealmObject implements Serializable{
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public int getPrice() {

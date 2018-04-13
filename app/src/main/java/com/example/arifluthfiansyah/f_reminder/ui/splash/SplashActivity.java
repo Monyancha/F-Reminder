@@ -8,7 +8,7 @@ import android.support.annotation.Nullable;
 import com.example.arifluthfiansyah.f_reminder.R;
 import com.example.arifluthfiansyah.f_reminder.controller.IncomeController;
 import com.example.arifluthfiansyah.f_reminder.controller.OutcomeController;
-import com.example.arifluthfiansyah.f_reminder.data.AppPreferencesHelper;
+import com.example.arifluthfiansyah.f_reminder.data.prefs.AppPreferencesHelper;
 import com.example.arifluthfiansyah.f_reminder.model.Income;
 import com.example.arifluthfiansyah.f_reminder.model.Outcome;
 import com.example.arifluthfiansyah.f_reminder.ui.base.BaseActivity;
@@ -38,7 +38,11 @@ public class SplashActivity extends BaseActivity {
             }
         }, 800);
     }
-
+    public void openMainActivity(){
+        Intent intent = MainActivity.getStartIntent(SplashActivity.this);
+        startActivity(intent);
+        finish();
+    }
     private void setupPrefixData() {
         if (AppPreferencesHelper.with(this).getIsFirstTime()) {
             OutcomeController.with(this).deleteOutcomes();

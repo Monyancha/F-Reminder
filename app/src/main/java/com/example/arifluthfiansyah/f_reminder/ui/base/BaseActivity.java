@@ -25,7 +25,7 @@ import java.util.Locale;
  * Created by Arif Luthfiansyah on 11-Dec-17.
  */
 
-public class BaseActivity extends AppCompatActivity {
+public class BaseActivity extends AppCompatActivity implements MvpView{
 
 
     public void setNotification(String title, String content) {
