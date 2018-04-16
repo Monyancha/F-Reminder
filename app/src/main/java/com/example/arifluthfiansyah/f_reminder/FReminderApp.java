@@ -24,6 +24,7 @@ public class FReminderApp extends Application {
     public static FReminderApp get(Context context){
         return (FReminderApp) context.getApplicationContext();
     }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -34,7 +35,7 @@ public class FReminderApp extends Application {
         mApplicationComponent.inject(this);
     }
 
-    public ApplicationComponent getmApplicationComponent() {
+    public ApplicationComponent getApplicationComponent() {
         return mApplicationComponent;
     }
 }

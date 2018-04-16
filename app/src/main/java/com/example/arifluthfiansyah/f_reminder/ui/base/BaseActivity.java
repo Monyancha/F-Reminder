@@ -3,6 +3,8 @@ package com.example.arifluthfiansyah.f_reminder.ui.base;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -11,9 +13,12 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.arifluthfiansyah.f_reminder.FReminderApp;
 import com.example.arifluthfiansyah.f_reminder.R;
 import com.example.arifluthfiansyah.f_reminder.controller.IncomeController;
 import com.example.arifluthfiansyah.f_reminder.controller.OutcomeController;
+import com.example.arifluthfiansyah.f_reminder.di.component.ActivityComponent;
+import com.example.arifluthfiansyah.f_reminder.di.module.ActivityModule;
 import com.example.arifluthfiansyah.f_reminder.model.Income;
 import com.example.arifluthfiansyah.f_reminder.model.Outcome;
 
@@ -27,6 +32,20 @@ import java.util.Locale;
 
 public class BaseActivity extends AppCompatActivity implements MvpView{
 
+    private ActivityComponent mActivityComponent;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mActivityComponent = DaggerApplicationComponent.builder()
+                .activityModule(new ActivityModule(this))
+                .applicationComponent(((FReminderApp) getApplication()).getApplicationComponent())
+                .build();
+    }
+
+    public ActivityComponent getActivityComponent() {
+        return mActivityComponent;
+    }
 
     public void setNotification(String title, String content) {
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
@@ -40,11 +59,6 @@ public class BaseActivity extends AppCompatActivity implements MvpView{
         }
     }
 
-    public String getCurrentOfDate() {
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
-        return df.format(calendar.getTime());
-    }
 
     public void showSnackbar(View view, String message) {
         Snackbar.make(view, message, Snackbar.LENGTH_SHORT).setAction("Action", null).show();
