@@ -3,7 +3,6 @@ package com.example.arifluthfiansyah.f_reminder.ui.splash;
 import com.example.arifluthfiansyah.f_reminder.data.DataManager;
 import com.example.arifluthfiansyah.f_reminder.data.db.model.Income;
 import com.example.arifluthfiansyah.f_reminder.data.db.model.Outcome;
-import com.example.arifluthfiansyah.f_reminder.data.prefs.AppPreferencesHelper;
 import com.example.arifluthfiansyah.f_reminder.ui.base.BasePresenter;
 
 import javax.inject.Inject;

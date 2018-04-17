@@ -22,7 +22,12 @@ import com.example.arifluthfiansyah.f_reminder.ui.base.BaseActivity;
 import com.example.arifluthfiansyah.f_reminder.ui.income.IncomeFragment;
 import com.example.arifluthfiansyah.f_reminder.ui.outcome.OutcomeFragment;
 
-public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
+import javax.inject.Inject;
+
+public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, MainMvpView {
+
+    @Inject
+    private MainMvpPresenter<MainMvpView> mPresenter;
 
     private Toolbar mToolbar;
     private DrawerLayout mDrawerLayout;
@@ -40,12 +45,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getActivityComponent().inject(this);
+        mPresenter.onAttach(this);
         bindingView();
         setupToolbar();
         setupListener();
         setupDrawerLayout();
         setupPrefixContent();
-        setupPrefixData();
+
     }
 
     private void bindingView() {
@@ -78,22 +85,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         menuItem.setChecked(true);
     }
 
-    private void setupPrefixData() {
-        int totalIncome = 0, totalOutcome = 0;
-        for (Outcome o : OutcomeController.with(this).getOutcomes()) {
-            totalOutcome += o.getPrice();
-        }
-        for (Income i : IncomeController.with(this).getIncomes()) {
-            totalIncome += i.getPrice();
-        }
-        if ((totalIncome - totalOutcome) < 0) {
-            setNotification("Warning!", "Save your money for your future!");
-        } else {
-            setNotification("Great!", "Save!");
-        }
-        mTotalIncomeTextView.setText(String.valueOf(totalIncome));
-        mTotalOutcomeTextView.setText(String.valueOf(totalOutcome));
-        mTotalResultTextView.setText(String.valueOf(totalIncome - totalOutcome));
+    @Override
+    public void setStartText(int income, int outcome, int total){
+        mTotalIncomeTextView.setText(String.valueOf(income));
+        mTotalOutcomeTextView.setText(String.valueOf(outcome));
+        mTotalResultTextView.setText(String.valueOf(total));
     }
 
     @Override

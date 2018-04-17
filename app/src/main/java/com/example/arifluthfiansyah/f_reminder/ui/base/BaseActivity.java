@@ -26,6 +26,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+import javax.inject.Inject;
+
 /**
  * Created by Arif Luthfiansyah on 11-Dec-17.
  */
@@ -47,6 +49,7 @@ public class BaseActivity extends AppCompatActivity implements MvpView{
         return mActivityComponent;
     }
 
+    @Override
     public void setNotification(String title, String content) {
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
                 .setContentTitle(title)
@@ -59,15 +62,17 @@ public class BaseActivity extends AppCompatActivity implements MvpView{
         }
     }
 
-
+    @Override
     public void showSnackbar(View view, String message) {
         Snackbar.make(view, message, Snackbar.LENGTH_SHORT).setAction("Action", null).show();
     }
 
+    @Override
     public void showToastMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
+    @Inject
     public void printLog(String tag, String message) {
         Log.d(tag, message);
     }
