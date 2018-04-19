@@ -30,7 +30,7 @@ public class ApplicationModule {
 
     @Provides
     @ApplicationContext
-    Context provideContext() {return mApplication;}
+    Context provideContext() {return mApplication.getApplicationContext();}
 
     @Provides
     Application provideApplication(){return mApplication;}

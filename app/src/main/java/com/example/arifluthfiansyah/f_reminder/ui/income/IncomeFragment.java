@@ -18,7 +18,7 @@ import com.example.arifluthfiansyah.f_reminder.controller.OutcomeController;
 import com.example.arifluthfiansyah.f_reminder.model.Income;
 import com.example.arifluthfiansyah.f_reminder.model.Outcome;
 import com.example.arifluthfiansyah.f_reminder.ui.base.BaseFragment;
-import com.example.arifluthfiansyah.f_reminder.ui.outcome.OutcomeFragment;
+import com.example.arifluthfiansyah.f_reminder.ui.income.dialog.IncomeDialogFragment;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
@@ -30,7 +30,7 @@ import io.realm.RealmChangeListener;
  */
 
 public class IncomeFragment extends BaseFragment implements IncomeAdapter.IncomeAdapterListener,
-        IncomeDialogFragment.IncomeDialogListener, View.OnClickListener {
+        IncomeDialogFragment.IncomeDialogListener, View.OnClickListener, IncomeMvpView {
 
     private Context mContext;
 

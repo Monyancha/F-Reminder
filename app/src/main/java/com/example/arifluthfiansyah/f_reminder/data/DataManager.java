@@ -5,6 +5,8 @@ import com.example.arifluthfiansyah.f_reminder.data.db.model.Outcome;
 
 import java.util.List;
 
+import io.realm.Realm;
+
 public interface DataManager {
 	void addIncome(Income income);
 	void updateIncome(Income income);
@@ -23,4 +25,5 @@ public interface DataManager {
 	void setIsFirstTime(boolean firsttime);
 	boolean getIsFirstTime();
 	void clearAll();
+	Realm getRealm();
 }

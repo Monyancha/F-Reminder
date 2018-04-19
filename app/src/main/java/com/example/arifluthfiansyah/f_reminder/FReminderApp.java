@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.example.arifluthfiansyah.f_reminder.data.DataManager;
 import com.example.arifluthfiansyah.f_reminder.di.component.ApplicationComponent;
+import com.example.arifluthfiansyah.f_reminder.di.component.DaggerApplicationComponent;
 import com.example.arifluthfiansyah.f_reminder.di.module.ApplicationModule;
 
 import javax.inject.Inject;

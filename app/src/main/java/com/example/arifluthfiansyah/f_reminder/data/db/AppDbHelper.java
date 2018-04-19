@@ -257,4 +257,7 @@ public class AppDbHelper implements DbHelper {
             }
         });
     }
+
+    @Override
+    public Realm getRealm(){ return realm;}
 }

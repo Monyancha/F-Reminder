@@ -10,23 +10,14 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.arifluthfiansyah.f_reminder.FReminderApp;
 import com.example.arifluthfiansyah.f_reminder.R;
-import com.example.arifluthfiansyah.f_reminder.controller.IncomeController;
-import com.example.arifluthfiansyah.f_reminder.controller.OutcomeController;
 import com.example.arifluthfiansyah.f_reminder.di.component.ActivityComponent;
+import com.example.arifluthfiansyah.f_reminder.di.component.DaggerActivityComponent;
 import com.example.arifluthfiansyah.f_reminder.di.module.ActivityModule;
-import com.example.arifluthfiansyah.f_reminder.model.Income;
-import com.example.arifluthfiansyah.f_reminder.model.Outcome;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Locale;
-
-import javax.inject.Inject;
 
 /**
  * Created by Arif Luthfiansyah on 11-Dec-17.
@@ -39,7 +30,7 @@ public class BaseActivity extends AppCompatActivity implements MvpView{
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mActivityComponent = DaggerApplicationComponent.builder()
+        mActivityComponent = DaggerActivityComponent.builder()
                 .activityModule(new ActivityModule(this))
                 .applicationComponent(((FReminderApp) getApplication()).getApplicationComponent())
                 .build();
@@ -72,7 +63,7 @@ public class BaseActivity extends AppCompatActivity implements MvpView{
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
-    @Inject
+    @Override
     public void printLog(String tag, String message) {
         Log.d(tag, message);
     }

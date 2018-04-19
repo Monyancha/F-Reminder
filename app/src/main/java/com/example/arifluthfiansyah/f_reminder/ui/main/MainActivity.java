@@ -14,10 +14,6 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.example.arifluthfiansyah.f_reminder.R;
-import com.example.arifluthfiansyah.f_reminder.controller.IncomeController;
-import com.example.arifluthfiansyah.f_reminder.controller.OutcomeController;
-import com.example.arifluthfiansyah.f_reminder.model.Income;
-import com.example.arifluthfiansyah.f_reminder.model.Outcome;
 import com.example.arifluthfiansyah.f_reminder.ui.base.BaseActivity;
 import com.example.arifluthfiansyah.f_reminder.ui.income.IncomeFragment;
 import com.example.arifluthfiansyah.f_reminder.ui.outcome.OutcomeFragment;
@@ -27,7 +23,7 @@ import javax.inject.Inject;
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, MainMvpView {
 
     @Inject
-    private MainMvpPresenter<MainMvpView> mPresenter;
+    public MainMvpPresenter<MainMvpView> mPresenter;
 
     private Toolbar mToolbar;
     private DrawerLayout mDrawerLayout;

@@ -1,4 +1,4 @@
-package com.example.arifluthfiansyah.f_reminder.ui.income;
+package com.example.arifluthfiansyah.f_reminder.ui.income.dialog;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

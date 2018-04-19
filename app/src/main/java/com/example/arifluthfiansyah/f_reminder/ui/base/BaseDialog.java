@@ -12,7 +12,7 @@ import java.util.Locale;
  * Created by Arif Luthfiansyah on 11-Dec-17.
  */
 
-public class BaseDialogFragment extends DialogFragment {
+public class BaseDialog extends DialogFragment implements DialogMvpView{
 
     public String getCurrentOfDate() {
         Calendar calendar = Calendar.getInstance();
@@ -23,6 +23,7 @@ public class BaseDialogFragment extends DialogFragment {
     public void showToastMessage(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
+
 
     public void printLog(String tag, String message) {
         Log.d(tag, message);

@@ -18,20 +18,12 @@ public class AppPreferencesHelper implements PreferencesHelper{
     private static final String PREF_NAME = "F-REMINDER";
     private static final String PREF_KEY_IS_FIRST_TIME = "PREF_KEY_IS_FIRST_TIME";
 
-    private static AppPreferencesHelper mInstance;
     private final SharedPreferences mPrefs;
 
     @Inject
-    private AppPreferencesHelper(@ApplicationContext Context context) {
+    public AppPreferencesHelper(@ApplicationContext Context context) {
         mPrefs = context.getApplicationContext()
                 .getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
-    }
-
-    public static AppPreferencesHelper with(Context context) {
-        if (mInstance == null) {
-            mInstance = new AppPreferencesHelper(context);
-        }
-        return mInstance;
     }
 
     @Override

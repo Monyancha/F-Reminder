@@ -1,13 +1,11 @@
 package com.example.arifluthfiansyah.f_reminder.di.component;
 
+
 import android.app.Application;
 import android.content.Context;
-import android.content.SharedPreferences;
 
 import com.example.arifluthfiansyah.f_reminder.FReminderApp;
 import com.example.arifluthfiansyah.f_reminder.data.DataManager;
-import com.example.arifluthfiansyah.f_reminder.data.db.DbHelper;
-import com.example.arifluthfiansyah.f_reminder.data.prefs.PreferencesHelper;
 import com.example.arifluthfiansyah.f_reminder.di.ApplicationContext;
 import com.example.arifluthfiansyah.f_reminder.di.module.ApplicationModule;
 
@@ -18,12 +16,13 @@ import dagger.Component;
 @Singleton
 @Component(modules = ApplicationModule.class)
 public interface ApplicationComponent {
-    void inject(FReminderApp fReminderApp);
+
+    void inject(FReminderApp app);
 
     @ApplicationContext
     Context context();
-    Application getApplication();
+
+    Application application();
+
     DataManager getDataManager();
-    PreferencesHelper getPrefsHelper();
-    DbHelper getDbHelper();
 }

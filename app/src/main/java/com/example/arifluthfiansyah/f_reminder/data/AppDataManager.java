@@ -13,6 +13,8 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import io.realm.Realm;
+
 @Singleton
 public class AppDataManager implements DataManager {
     private final Context mContext;
@@ -110,4 +112,7 @@ public class AppDataManager implements DataManager {
     public void clearAll() {
         mPreferencesHelper.clearAll();
     }
+
+    @Override
+    public Realm getRealm() { mDbHelper.getRealm(); }
 }

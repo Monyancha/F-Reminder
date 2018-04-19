@@ -1,9 +1,11 @@
 package com.example.arifluthfiansyah.f_reminder.data.db.model;
 
+import java.io.Serializable;
+
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
-public class Outcome extends RealmObject {
+public class Outcome extends RealmObject implements Serializable{
 
     @PrimaryKey
     private long id;

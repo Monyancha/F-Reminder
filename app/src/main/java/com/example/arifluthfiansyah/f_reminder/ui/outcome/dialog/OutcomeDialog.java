@@ -1,4 +1,4 @@
-package com.example.arifluthfiansyah.f_reminder.ui.outcome;
+package com.example.arifluthfiansyah.f_reminder.ui.outcome.dialog;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,18 +8,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.example.arifluthfiansyah.f_reminder.R;
-import com.example.arifluthfiansyah.f_reminder.controller.OutcomeController;
-import com.example.arifluthfiansyah.f_reminder.model.Outcome;
-import com.example.arifluthfiansyah.f_reminder.ui.base.BaseDialogFragment;
+import com.example.arifluthfiansyah.f_reminder.data.db.model.Outcome;
+import com.example.arifluthfiansyah.f_reminder.ui.base.BaseDialog;
+
+import javax.inject.Inject;
 
 /**
  * Created by Arif Luthfiansyah on 11-Dec-17.
  */
 
-public class OutcomeDialogFragment extends BaseDialogFragment implements View.OnClickListener{
+public class OutcomeDialog extends BaseDialog implements View.OnClickListener, OutcomeDialogMvpView{
+
+    @Override
+    public void setNotification(String title, String content) {
+
+    }
+
+    @Inject
+    OutcomeDialogMvpPresenter<OutcomeDialogMvpView> mPresenter;
 
     private static OutcomeDialogListener mListener;
 
@@ -28,8 +36,8 @@ public class OutcomeDialogFragment extends BaseDialogFragment implements View.On
     private EditText mPriceOutcomeEditText;
     private Button mSaveOutcomeButton;
 
-    public static OutcomeDialogFragment newInstance(OutcomeDialogListener listener, Outcome outcome) {
-        OutcomeDialogFragment dialogFragment = new OutcomeDialogFragment();
+    public static OutcomeDialog newInstance(OutcomeDialogListener listener, Outcome outcome) {
+        OutcomeDialog dialogFragment = new OutcomeDialog();
         mListener = listener;
         Bundle bundle = new Bundle();
         bundle.putSerializable("keyOutcome", outcome);
@@ -50,6 +58,7 @@ public class OutcomeDialogFragment extends BaseDialogFragment implements View.On
         bindingView(view);
         setupListener();
         setupPrefixData();
+        mPresenter.onAttach(this);
         return view;
     }
 
@@ -89,14 +98,15 @@ public class OutcomeDialogFragment extends BaseDialogFragment implements View.On
                     String title = mTitleOutcomeEditText.getText().toString();
                     String content = mContentOutcomeEditText.getText().toString();
                     int price = Integer.parseInt(mPriceOutcomeEditText.getText().toString());
-                    Outcome update = new Outcome(getArgsOutcome().getId(), title, content, price, getArgsOutcome().getDate());
-                    OutcomeController.with(this).updateOutcome(update);
+                    Outcome outcome = new Outcome(getArgsOutcome().getId(), title, content, price, getArgsOutcome().getDate());
+                    mPresenter.updateOutcome(outcome);
+
                 } else {
                     String title = mTitleOutcomeEditText.getText().toString();
                     String content = mContentOutcomeEditText.getText().toString();
                     int price = Integer.parseInt(mPriceOutcomeEditText.getText().toString());
-                    Outcome add = new Outcome(System.currentTimeMillis(), title, content, price, getCurrentOfDate());
-                    OutcomeController.with(this).addOutcome(add);
+                    Outcome outcome = new Outcome(System.currentTimeMillis(), title, content, price, getCurrentOfDate());
+                    mPresenter.addOutcome(outcome);
                 }
                 mListener.onSaveButtonClick();
                 dismiss();

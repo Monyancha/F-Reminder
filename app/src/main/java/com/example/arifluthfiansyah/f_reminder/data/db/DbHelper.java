@@ -5,6 +5,8 @@ import com.example.arifluthfiansyah.f_reminder.data.db.model.Outcome;
 
 import java.util.List;
 
+import io.realm.Realm;
+
 public interface DbHelper {
     void addIncome(Income income);
     void updateIncome(Income income);
@@ -21,4 +23,5 @@ public interface DbHelper {
     List<Outcome> getOutcomes();
     void deleteOutcomeById(long id);
     void deleteOutcomes();
+    Realm getRealm();
 }
