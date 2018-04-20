@@ -1,4 +1,6 @@
 package com.example.arifluthfiansyah.f_reminder.ui.income.dialog;
 
-public interface IncomeDialogMvpView {
+import com.example.arifluthfiansyah.f_reminder.ui.base.DialogMvpView;
+
+public interface IncomeDialogMvpView extends DialogMvpView {
 }

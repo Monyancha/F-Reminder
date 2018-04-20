@@ -7,6 +7,9 @@ import com.example.arifluthfiansyah.f_reminder.FReminderApp;
 import com.example.arifluthfiansyah.f_reminder.data.DataManager;
 import com.example.arifluthfiansyah.f_reminder.di.ActivityContext;
 import com.example.arifluthfiansyah.f_reminder.di.PerActivity;
+import com.example.arifluthfiansyah.f_reminder.ui.income.dialog.IncomeDialogMvpPresenter;
+import com.example.arifluthfiansyah.f_reminder.ui.income.dialog.IncomeDialogMvpView;
+import com.example.arifluthfiansyah.f_reminder.ui.income.dialog.IncomeDialogPresenter;
 import com.example.arifluthfiansyah.f_reminder.ui.main.MainMvpPresenter;
 import com.example.arifluthfiansyah.f_reminder.ui.main.MainMvpView;
 import com.example.arifluthfiansyah.f_reminder.ui.main.MainPresenter;
@@ -67,6 +70,13 @@ public class ActivityModule {
     @PerActivity
     OutcomeDialogMvpPresenter<OutcomeDialogMvpView> provideOutcomeDialogPresenter(
             OutcomeDialogPresenter<OutcomeDialogMvpView> presenter){
+        return presenter;
+    }
+
+    @Provides
+    @PerActivity
+    IncomeDialogMvpPresenter<IncomeDialogMvpView> provideIncomeDialogPresenter(
+            IncomeDialogPresenter<IncomeDialogMvpView> presenter){
         return presenter;
     }
 }

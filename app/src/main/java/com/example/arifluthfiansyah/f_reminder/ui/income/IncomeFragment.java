@@ -30,7 +30,7 @@ import io.realm.RealmChangeListener;
  */
 
 public class IncomeFragment extends BaseFragment implements IncomeAdapter.IncomeAdapterListener,
-        IncomeDialogFragment.IncomeDialogListener, View.OnClickListener, IncomeMvpView {
+        IncomeDialog.IncomeDialogListener, View.OnClickListener, IncomeMvpView {
 
     private Context mContext;
 

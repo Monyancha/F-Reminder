@@ -10,24 +10,34 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.arifluthfiansyah.f_reminder.R;
-import com.example.arifluthfiansyah.f_reminder.controller.IncomeController;
-import com.example.arifluthfiansyah.f_reminder.model.Income;
-import com.example.arifluthfiansyah.f_reminder.ui.base.BaseDialogFragment;
+import com.example.arifluthfiansyah.f_reminder.data.db.model.Income;
+import com.example.arifluthfiansyah.f_reminder.ui.base.BaseDialog;
+
+import javax.inject.Inject;
 
 /**
  * Created by Arif Luthfiansyah on 12-Dec-17.
  */
 
-public class IncomeDialogFragment extends BaseDialogFragment implements View.OnClickListener {
+public class IncomeDialog extends BaseDialog implements View.OnClickListener, IncomeDialogMvpView {
 
     private static IncomeDialogListener mListener;
 
+    @Inject
+    IncomeDialogMvpPresenter<IncomeDialogMvpView> mPresenter;
+
     private EditText mTitleIncomeEditText;
+
+    @Override
+    public void setNotification(String title, String content) {
+
+    }
+
     private EditText mPriceIncomeEditText;
     private Button mSaveIncomeButton;
 
-    public static IncomeDialogFragment newInstance(IncomeDialogListener listener, Income income) {
-        IncomeDialogFragment dialogFragment = new IncomeDialogFragment();
+    public static IncomeDialog newInstance(IncomeDialogListener listener, Income income) {
+        IncomeDialog dialogFragment = new IncomeDialog();
         mListener = listener;
         Bundle bundle = new Bundle();
         bundle.putSerializable("keyIncome", income);
@@ -84,13 +94,13 @@ public class IncomeDialogFragment extends BaseDialogFragment implements View.OnC
                 if (getArgsIncome() != null) {
                     String title = mTitleIncomeEditText.getText().toString();
                     int price = Integer.parseInt(mPriceIncomeEditText.getText().toString());
-                    Income update = new Income(getArgsIncome().getId(), title, price, getArgsIncome().getDate());
-                    IncomeController.with(this).updateIncome(update);
+                    Income income = new Income(getArgsIncome().getId(), title, price, getArgsIncome().getDate());
+                    mPresenter.updateIncome(income);
                 } else {
                     String title = mTitleIncomeEditText.getText().toString();
                     int price = Integer.parseInt(mPriceIncomeEditText.getText().toString());
-                    Income add = new Income(System.currentTimeMillis(), title, price, getCurrentOfDate());
-                    IncomeController.with(this).addIncome(add);
+                    Income income = new Income(System.currentTimeMillis(), title, price, getCurrentOfDate());
+                    mPresenter.addIncome(income);
                 }
                 mListener.onSaveButtonClick();
                 dismiss();
