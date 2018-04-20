@@ -114,5 +114,5 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public Realm getRealm() { mDbHelper.getRealm(); }
+    public Realm getRealm() { return mDbHelper.getRealm(); }
 }

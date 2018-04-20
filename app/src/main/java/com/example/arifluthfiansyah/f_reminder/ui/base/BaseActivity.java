@@ -53,18 +53,18 @@ public class BaseActivity extends AppCompatActivity implements MvpView{
         }
     }
 
-    @Override
-    public void showSnackbar(View view, String message) {
-        Snackbar.make(view, message, Snackbar.LENGTH_SHORT).setAction("Action", null).show();
-    }
+//    @Override
+//    public void showSnackbar(View view, String message) {
+//        Snackbar.make(view, message, Snackbar.LENGTH_SHORT).setAction("Action", null).show();
+//    }
 
     @Override
     public void showToastMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    public void printLog(String tag, String message) {
-        Log.d(tag, message);
-    }
+//    @Override
+//    public void printLog(String tag, String message) {
+//        Log.d(tag, message);
+//    }
 }

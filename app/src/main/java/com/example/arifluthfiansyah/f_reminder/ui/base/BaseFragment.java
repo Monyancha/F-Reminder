@@ -24,7 +24,7 @@ public class BaseFragment extends Fragment implements MvpView{
 
     @Override
     public void setNotification(String title, String content) {
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getContext())
                 .setContentTitle(title)
                 .setContentText(content)
                 .setSmallIcon(R.drawable.ic_attach_money)
@@ -46,13 +46,13 @@ public class BaseFragment extends Fragment implements MvpView{
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    public void showSnackbar(View view, String message) {
-        Snackbar.make(view, message, Snackbar.LENGTH_SHORT).setAction("Action", null).show();
-    }
+//    @Override
+//    public void showSnackbar(View view, String message) {
+//        Snackbar.make(view, message, Snackbar.LENGTH_SHORT).setAction("Action", null).show();
+//    }
 
-    @Override
-    public void printLog(String tag, String message) {
-        Log.d(tag, message);
-    }
+//    @Override
+//    public void printLog(String tag, String message) {
+//        Log.d(tag, message);
+//    }
 }

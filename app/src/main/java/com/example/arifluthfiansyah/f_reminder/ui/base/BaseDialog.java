@@ -13,6 +13,10 @@ import java.util.Locale;
  */
 
 public class BaseDialog extends DialogFragment implements DialogMvpView{
+    @Override
+    public void setNotification(String title, String content) {
+
+    }
 
     public String getCurrentOfDate() {
         Calendar calendar = Calendar.getInstance();
@@ -25,7 +29,7 @@ public class BaseDialog extends DialogFragment implements DialogMvpView{
     }
 
 
-    public void printLog(String tag, String message) {
-        Log.d(tag, message);
-    }
+//    public void printLog(String tag, String message) {
+//        Log.d(tag, message);
+//    }
 }

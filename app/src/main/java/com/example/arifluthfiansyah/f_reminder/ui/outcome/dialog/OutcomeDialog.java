@@ -21,11 +21,6 @@ import javax.inject.Inject;
 
 public class OutcomeDialog extends BaseDialog implements View.OnClickListener, OutcomeDialogMvpView{
 
-    @Override
-    public void setNotification(String title, String content) {
-
-    }
-
     @Inject
     OutcomeDialogMvpPresenter<OutcomeDialogMvpView> mPresenter;
 

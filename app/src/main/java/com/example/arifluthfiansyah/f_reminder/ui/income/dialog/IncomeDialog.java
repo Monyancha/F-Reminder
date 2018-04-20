@@ -27,12 +27,6 @@ public class IncomeDialog extends BaseDialog implements View.OnClickListener, In
     IncomeDialogMvpPresenter<IncomeDialogMvpView> mPresenter;
 
     private EditText mTitleIncomeEditText;
-
-    @Override
-    public void setNotification(String title, String content) {
-
-    }
-
     private EditText mPriceIncomeEditText;
     private Button mSaveIncomeButton;
 

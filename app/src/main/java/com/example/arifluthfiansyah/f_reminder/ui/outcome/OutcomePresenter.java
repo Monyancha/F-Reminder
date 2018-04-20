@@ -46,6 +46,6 @@ public class OutcomePresenter<V extends OutcomeMvpView> extends BasePresenter<V>
 
     @Override
     public List<Outcome> getOutcomes(){
-        getDataManager().getOutcomes();
+        return getDataManager().getOutcomes();
     }
 }
