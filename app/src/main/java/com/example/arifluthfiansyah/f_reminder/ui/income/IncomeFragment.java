@@ -91,7 +91,7 @@ public class IncomeFragment extends BaseFragment implements IncomeAdapter.Income
     }
 
     @Override
-    public void setResult(int totalOutcome, int totalIncome) {
+    public void setResult(int totalIncome, int totalOutcome) {
         mTotalIncomeTextView.setText(String.valueOf(totalIncome));
         mTotalResultTextView.setText(String.valueOf(totalIncome - totalOutcome));
     }
