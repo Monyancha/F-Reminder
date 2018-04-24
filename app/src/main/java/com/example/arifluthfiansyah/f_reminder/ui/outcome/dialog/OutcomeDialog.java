@@ -11,6 +11,7 @@ import android.widget.EditText;
 
 import com.example.arifluthfiansyah.f_reminder.R;
 import com.example.arifluthfiansyah.f_reminder.data.db.model.Outcome;
+import com.example.arifluthfiansyah.f_reminder.di.component.ActivityComponent;
 import com.example.arifluthfiansyah.f_reminder.ui.base.BaseDialog;
 
 import javax.inject.Inject;
@@ -52,8 +53,15 @@ public class OutcomeDialog extends BaseDialog implements View.OnClickListener, O
         View view = inflater.inflate(R.layout.dialog_fragment_outcome, container, false);
         bindingView(view);
         setupListener();
+        ActivityComponent component = getActivityComponent();
+        if (component != null) {
+
+            component.inject(this);
+
+            mPresenter.onAttach(this);
+        }
+
         setupPrefixData();
-        mPresenter.onAttach(this);
         return view;
     }
 

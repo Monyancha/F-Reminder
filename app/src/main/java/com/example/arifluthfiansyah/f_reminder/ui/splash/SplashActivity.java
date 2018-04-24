@@ -31,6 +31,6 @@ public class SplashActivity extends BaseActivity implements SplashMvpView{
     public void openMainActivity(){
         Intent intent = MainActivity.getStartIntent(SplashActivity.this);
         startActivity(intent);
-        finish();
+//        finish();
     }
 }

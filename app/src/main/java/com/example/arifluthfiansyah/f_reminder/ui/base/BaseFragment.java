@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.arifluthfiansyah.f_reminder.R;
+import com.example.arifluthfiansyah.f_reminder.di.component.ActivityComponent;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -21,15 +22,25 @@ import java.util.Locale;
  */
 
 public class BaseFragment extends Fragment implements MvpView{
+    private BaseActivity mActivity;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof BaseActivity) {
+            BaseActivity activity = (BaseActivity) context;
+            this.mActivity = activity;
+        }
+    }
 
     @Override
     public void setNotification(String title, String content) {
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getContext())
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(mActivity)
                 .setContentTitle(title)
                 .setContentText(content)
                 .setSmallIcon(R.drawable.ic_attach_money)
                 .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE);
-        NotificationManager mNotificationManager = (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager mNotificationManager = (NotificationManager) mActivity.getSystemService(Context.NOTIFICATION_SERVICE);
         if (mNotificationManager != null) {
             mNotificationManager.notify(0, mBuilder.build());
         }
@@ -55,4 +66,11 @@ public class BaseFragment extends Fragment implements MvpView{
 //    public void printLog(String tag, String message) {
 //        Log.d(tag, message);
 //    }
+
+    public ActivityComponent getActivityComponent() {
+        if (mActivity != null) {
+            return mActivity.getActivityComponent();
+        }
+        return null;
+    }
 }

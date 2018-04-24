@@ -23,7 +23,7 @@ import javax.inject.Inject;
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, MainMvpView {
 
     @Inject
-    public MainMvpPresenter<MainMvpView> mPresenter;
+    MainMvpPresenter<MainMvpView> mPresenter;
 
     private Toolbar mToolbar;
     private DrawerLayout mDrawerLayout;
@@ -41,14 +41,13 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getActivityComponent().inject(this);
-        mPresenter.onAttach(this);
         bindingView();
         setupToolbar();
         setupListener();
         setupDrawerLayout();
         setupPrefixContent();
-
+        getActivityComponent().inject(this);
+        mPresenter.onAttach(this);
     }
 
     private void bindingView() {

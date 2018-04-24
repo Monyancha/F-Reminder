@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.example.arifluthfiansyah.f_reminder.R;
 import com.example.arifluthfiansyah.f_reminder.data.db.model.Income;
+import com.example.arifluthfiansyah.f_reminder.di.component.ActivityComponent;
 import com.example.arifluthfiansyah.f_reminder.ui.base.BaseFragment;
 import com.example.arifluthfiansyah.f_reminder.ui.income.dialog.IncomeDialog;
 
@@ -48,8 +49,12 @@ public class IncomeFragment extends BaseFragment implements IncomeAdapter.Income
         View view = inflater.inflate(R.layout.fragment_income, container, false);
         bindingView(view);
         setupListener();
+        ActivityComponent component = getActivityComponent();
+        if (component != null) {
+            component.inject(this);
+            mPresenter.onAttach(this);
+        }
         setupRecyclerView();
-        mPresenter.onAttach(this);
         return view;
     }
 

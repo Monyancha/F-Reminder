@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.arifluthfiansyah.f_reminder.R;
 import com.example.arifluthfiansyah.f_reminder.data.db.model.Outcome;
+import com.example.arifluthfiansyah.f_reminder.di.component.ActivityComponent;
 import com.example.arifluthfiansyah.f_reminder.ui.base.BaseFragment;
 import com.example.arifluthfiansyah.f_reminder.ui.outcome.dialog.OutcomeDialog;
 
@@ -42,8 +43,12 @@ public class OutcomeFragment extends BaseFragment implements OutcomeAdapter.Outc
         View view = inflater.inflate(R.layout.fragment_outcome, container, false);
         bindingView(view);
         setupListener();
+        ActivityComponent component = getActivityComponent();
+        if (component != null) {
+            component.inject(this);
+            mPresenter.onAttach(this);
+        }
         setupRecyclerView();
-        mPresenter.onAttach(this);
         return view;
     }
 

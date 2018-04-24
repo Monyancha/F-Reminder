@@ -11,6 +11,7 @@ import android.widget.EditText;
 
 import com.example.arifluthfiansyah.f_reminder.R;
 import com.example.arifluthfiansyah.f_reminder.data.db.model.Income;
+import com.example.arifluthfiansyah.f_reminder.di.component.ActivityComponent;
 import com.example.arifluthfiansyah.f_reminder.ui.base.BaseDialog;
 
 import javax.inject.Inject;
@@ -51,6 +52,14 @@ public class IncomeDialog extends BaseDialog implements View.OnClickListener, In
         View view = inflater.inflate(R.layout.dialog_fragment_income, container, false);
         bindingView(view);
         setupListener();
+        ActivityComponent component = getActivityComponent();
+        if (component != null) {
+
+            component.inject(this);
+
+            mPresenter.onAttach(this);
+        }
+
         setupPrefixData();
         return view;
     }
