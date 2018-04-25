@@ -7,8 +7,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.arifluthfiansyah.f_reminder.R;
-import com.example.arifluthfiansyah.f_reminder.model.Outcome;
-import com.example.arifluthfiansyah.f_reminder.util.FormatCurrencyUtil;
+import com.example.arifluthfiansyah.f_reminder.data.db.model.Outcome;
+import com.example.arifluthfiansyah.f_reminder.utils.FormatCurrencyUtil;
 
 import java.util.ArrayList;
 import java.util.List;

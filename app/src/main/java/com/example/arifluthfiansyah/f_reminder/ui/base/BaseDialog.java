@@ -1,16 +1,10 @@
 package com.example.arifluthfiansyah.f_reminder.ui.base;
 
-import android.app.Notification;
-import android.app.NotificationManager;
 import android.content.Context;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.DialogFragment;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
-import com.example.arifluthfiansyah.f_reminder.R;
 import com.example.arifluthfiansyah.f_reminder.di.component.ActivityComponent;
 
 import java.text.SimpleDateFormat;
@@ -21,29 +15,20 @@ import java.util.Locale;
  * Created by Arif Luthfiansyah on 11-Dec-17.
  */
 
-public class BaseFragment extends Fragment implements MvpView{
+public class BaseDialog extends DialogFragment implements DialogMvpView{
     private BaseActivity mActivity;
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof BaseActivity) {
-            BaseActivity activity = (BaseActivity) context;
-            this.mActivity = activity;
+            BaseActivity mActivity = (BaseActivity) context;
+            this.mActivity = mActivity;
         }
     }
 
     @Override
     public void setNotification(String title, String content) {
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(mActivity)
-                .setContentTitle(title)
-                .setContentText(content)
-                .setSmallIcon(R.drawable.ic_attach_money)
-                .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE);
-        NotificationManager mNotificationManager = (NotificationManager) mActivity.getSystemService(Context.NOTIFICATION_SERVICE);
-        if (mNotificationManager != null) {
-            mNotificationManager.notify(0, mBuilder.build());
-        }
+
     }
 
     public String getCurrentOfDate() {
@@ -52,17 +37,11 @@ public class BaseFragment extends Fragment implements MvpView{
         return df.format(calendar.getTime());
     }
 
-    @Override
     public void showToastMessage(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
-//    @Override
-//    public void showSnackbar(View view, String message) {
-//        Snackbar.make(view, message, Snackbar.LENGTH_SHORT).setAction("Action", null).show();
-//    }
 
-//    @Override
 //    public void printLog(String tag, String message) {
 //        Log.d(tag, message);
 //    }

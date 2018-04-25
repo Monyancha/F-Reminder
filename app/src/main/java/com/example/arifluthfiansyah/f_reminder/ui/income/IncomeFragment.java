@@ -13,14 +13,15 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.arifluthfiansyah.f_reminder.R;
-import com.example.arifluthfiansyah.f_reminder.controller.IncomeController;
-import com.example.arifluthfiansyah.f_reminder.controller.OutcomeController;
-import com.example.arifluthfiansyah.f_reminder.model.Income;
-import com.example.arifluthfiansyah.f_reminder.model.Outcome;
+import com.example.arifluthfiansyah.f_reminder.data.db.model.Income;
+import com.example.arifluthfiansyah.f_reminder.di.component.ActivityComponent;
 import com.example.arifluthfiansyah.f_reminder.ui.base.BaseFragment;
-import com.example.arifluthfiansyah.f_reminder.ui.outcome.OutcomeFragment;
+import com.example.arifluthfiansyah.f_reminder.ui.income.dialog.IncomeDialog;
+
+import java.util.List;
 
 import javax.annotation.ParametersAreNonnullByDefault;
+import javax.inject.Inject;
 
 import io.realm.Realm;
 import io.realm.RealmChangeListener;
@@ -30,9 +31,10 @@ import io.realm.RealmChangeListener;
  */
 
 public class IncomeFragment extends BaseFragment implements IncomeAdapter.IncomeAdapterListener,
-        IncomeDialogFragment.IncomeDialogListener, View.OnClickListener {
+        IncomeDialog.IncomeDialogListener, View.OnClickListener, IncomeMvpView {
 
-    private Context mContext;
+    @Inject
+    IncomeMvpPresenter<IncomeMvpView> mPresenter;
 
     private FloatingActionButton mFab;
     private TextView mTotalIncomeTextView;
@@ -47,6 +49,11 @@ public class IncomeFragment extends BaseFragment implements IncomeAdapter.Income
         View view = inflater.inflate(R.layout.fragment_income, container, false);
         bindingView(view);
         setupListener();
+        ActivityComponent component = getActivityComponent();
+        if (component != null) {
+            component.inject(this);
+            mPresenter.onAttach(this);
+        }
         setupRecyclerView();
         return view;
     }
@@ -63,44 +70,35 @@ public class IncomeFragment extends BaseFragment implements IncomeAdapter.Income
     }
 
     private void setupRecyclerView() {
-        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mIncomeRecyclerView.setLayoutManager(layoutManager);
         mIncomeRecyclerView.setHasFixedSize(true);
         mIncomeAdapter = new IncomeAdapter(this);
         mIncomeRecyclerView.setAdapter(mIncomeAdapter);
-        mIncomeAdapter.addIncomes(IncomeController.with(this).getIncomes());
+        mIncomeAdapter.addIncomes(mPresenter.getIncomes());
     }
 
     @Override
     public void onIncomeItemClick(Income outcome) {
-        IncomeDialogFragment dialogFragment = IncomeDialogFragment.newInstance(this, outcome);
+        IncomeDialog dialogFragment = IncomeDialog.newInstance(this, outcome);
         dialogFragment.show(getFragmentManager(), "IncomeDialogFragment");
     }
 
     @Override
     public void onSaveButtonClick() {
-        IncomeController.with(this).getRealm().addChangeListener(new RealmChangeListener<Realm>() {
-            @ParametersAreNonnullByDefault
-            @Override
-            public void onChange(Realm realm) {
-                mIncomeAdapter.updateIncomes(IncomeController.with(IncomeFragment.this).getIncomes());
-                int totalIncome = 0, totalOutcome = 0;
-                for (Outcome o : OutcomeController.with(IncomeFragment.this).getOutcomes()) {
-                    totalOutcome += o.getPrice();
-                }
-                for (Income i : IncomeController.with(IncomeFragment.this).getIncomes()) {
-                    totalIncome += i.getPrice();
-                }
-                if ((totalIncome - totalOutcome) < 0) {
-                    setNotification(mContext, "Warning!", "Save your money for your future!");
-                } else {
-                    setNotification(mContext,"Great!", "Save!");
-                }
-                mTotalIncomeTextView.setText(String.valueOf(totalIncome));
-                mTotalResultTextView.setText(String.valueOf(totalIncome - totalOutcome));
-            }
-        });
+        mPresenter.setResult();
+    }
+
+    @Override
+    public void setResult(int totalIncome, int totalOutcome) {
+        mTotalIncomeTextView.setText(String.valueOf(totalIncome));
+        mTotalResultTextView.setText(String.valueOf(totalIncome - totalOutcome));
+    }
+
+    @Override
+    public void updateIncomes(List<Income> incomes){
+        mIncomeAdapter.updateIncomes(incomes);
     }
 
     @Override
@@ -108,15 +106,10 @@ public class IncomeFragment extends BaseFragment implements IncomeAdapter.Income
         int id = view.getId();
         switch (id) {
             case R.id.fab:
-                IncomeDialogFragment dialogFragment = IncomeDialogFragment.newInstance(this, null);
+                IncomeDialog dialogFragment = IncomeDialog.newInstance(this, null);
                 dialogFragment.show(getFragmentManager(), "OutcomeDialogFragment");
                 break;
         }
     }
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        mContext = activity;
-    }
 }

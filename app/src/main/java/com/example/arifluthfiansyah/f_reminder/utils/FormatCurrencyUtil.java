@@ -1,4 +1,4 @@
-package com.example.arifluthfiansyah.f_reminder.util;
+package com.example.arifluthfiansyah.f_reminder.utils;
 
 import java.text.NumberFormat;
 import java.util.Locale;

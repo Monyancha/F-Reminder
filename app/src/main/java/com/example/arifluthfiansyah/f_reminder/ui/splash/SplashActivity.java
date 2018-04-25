@@ -6,54 +6,36 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 
 import com.example.arifluthfiansyah.f_reminder.R;
-import com.example.arifluthfiansyah.f_reminder.controller.IncomeController;
-import com.example.arifluthfiansyah.f_reminder.controller.OutcomeController;
-import com.example.arifluthfiansyah.f_reminder.data.AppPreferencesHelper;
-import com.example.arifluthfiansyah.f_reminder.model.Income;
-import com.example.arifluthfiansyah.f_reminder.model.Outcome;
 import com.example.arifluthfiansyah.f_reminder.ui.base.BaseActivity;
 import com.example.arifluthfiansyah.f_reminder.ui.main.MainActivity;
+
+import javax.inject.Inject;
 
 /**
  * Created by Arif Luthfiansyah on 11-Dec-17.
  */
 
-public class SplashActivity extends BaseActivity {
+public class SplashActivity extends BaseActivity implements SplashMvpView{
+
+    @Inject
+    SplashMvpPresenter<SplashMvpView> mPresenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        setupPrefixData();
-        setupHandler();
+        getActivityComponent().inject(this);
+        mPresenter.onAttach(this);
     }
 
-    private void setupHandler() {
+    public void openMainActivity(){
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 Intent intent = MainActivity.getStartIntent(SplashActivity.this);
                 startActivity(intent);
-                finish();
+//        finish();
             }
         }, 800);
-    }
-
-    private void setupPrefixData() {
-        if (AppPreferencesHelper.with(this).getIsFirstTime()) {
-            OutcomeController.with(this).deleteOutcomes();
-            OutcomeController.with(this).addOutcome(new Outcome(System.currentTimeMillis(), "Beli buah 1", "Buah mangga", 10000, getCurrentOfDate()));
-            OutcomeController.with(this).addOutcome(new Outcome(System.currentTimeMillis(), "Beli buah 2", "Buah mangga", 10000, getCurrentOfDate()));
-            OutcomeController.with(this).addOutcome(new Outcome(System.currentTimeMillis(), "Beli buah 3", "Buah mangga", 10000, getCurrentOfDate()));
-            OutcomeController.with(this).addOutcome(new Outcome(System.currentTimeMillis(), "Beli buah 4", "Buah mangga", 10000, getCurrentOfDate()));
-            OutcomeController.with(this).addOutcome(new Outcome(System.currentTimeMillis(), "Beli buah 5", "Buah mangga", 10000, getCurrentOfDate()));
-            IncomeController.with(this).deleteIncomes();
-            IncomeController.with(this).addIncome(new Income(System.currentTimeMillis(), "Pendapatan 1", 10000, getCurrentOfDate()));
-            IncomeController.with(this).addIncome(new Income(System.currentTimeMillis(), "Pendapatan 1", 10000, getCurrentOfDate()));
-            IncomeController.with(this).addIncome(new Income(System.currentTimeMillis(), "Pendapatan 1", 10000, getCurrentOfDate()));
-            IncomeController.with(this).addIncome(new Income(System.currentTimeMillis(), "Pendapatan 1", 10000, getCurrentOfDate()));
-            IncomeController.with(this).addIncome(new Income(System.currentTimeMillis(), "Pendapatan 1", 10000, getCurrentOfDate()));
-            AppPreferencesHelper.with(this).setIsFirstTime(false);
-        }
     }
 }
